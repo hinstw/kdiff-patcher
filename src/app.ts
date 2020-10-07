@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as os from 'os';
 
 function readSettings(filePath) {
     const text = fs.readFileSync(filePath).toString();
@@ -24,8 +25,9 @@ function applyColors(mainSettings, colorSettings) {
         mainSettings[key] = colorSettings[key];
 }
 
-const mainSettings = readSettings('C:\\Users\\asa\\.kdiff3rc');
-const colorSettings = readSettings('C:\\Users\\asa\\Documents\\kdiff3rc-solarized.txt');
+const mainSettingsFilePath = os.homedir() + '/.kdiff3rc';
+const mainSettings = readSettings(mainSettingsFilePath);
+const colorSettings = readSettings('./.kdiff3rc-solarized.txt');
 
 applyColors(mainSettings, colorSettings);
-writeSettings('C:\\Users\\asa\\.kdiff3rc', mainSettings);
+writeSettings(mainSettingsFilePath, mainSettings);
